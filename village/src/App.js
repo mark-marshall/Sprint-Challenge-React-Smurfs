@@ -57,7 +57,6 @@ class App extends Component {
   }
 
   addSmurf = smurf => {
-    console.log(smurf)
     axios
       .post(smurfUrl, smurf)
       .then(() => this.addToSmurfsList(smurf))
@@ -80,7 +79,6 @@ class App extends Component {
   };
 
   addToSmurfsList = smurf => {
-    console.log(smurf)
     this.setState(prevState => ({
       smurfs: prevState.smurfs.concat(smurf),
     }));

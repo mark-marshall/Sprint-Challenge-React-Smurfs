@@ -91,7 +91,7 @@ Smurfs.propTypes = {
     PT.shape({
       age: PT.string.isRequired,
       height: PT.string.isRequired,
-      id: PT.number.isRequired,
+      id: PT.isRequired,
       name: PT.string.isRequired,
     }),
   ).isRequired,

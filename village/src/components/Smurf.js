@@ -22,6 +22,5 @@ export default Smurf;
 Smurf.propTypes = {
   age: PT.string.isRequired,
   height: PT.string.isRequired,
-  id: PT.number.isRequired,
   name: PT.string.isRequired,
 };

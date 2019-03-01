@@ -1,9 +1,32 @@
 import React, { Component } from 'react';
 import { Route, NavLink } from 'react-router-dom';
 import axios from 'axios';
+import styled from 'styled-components';
+
 import './App.css';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
+
+const HeaderWrapper = styled.nav`
+  margin: 18px 0;
+  height: 50px;
+  background-color: #62cdfd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  a {
+    color: red;
+    text-decoration: none;
+    text-transform: lowercase;
+    font-size: 18px;
+    padding: 1%;
+
+    &:hover {
+      color: white;
+    }
+  }
+`;
 
 const smurfUrl = 'http://localhost:3333/smurfs';
 
@@ -66,18 +89,15 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <nav>
+        <HeaderWrapper>
           <NavLink to="/">Smurfs</NavLink>
           <NavLink to="/smurf-form">Smurf Form</NavLink>
-        </nav>
+        </HeaderWrapper>
         <Route
           exact
           path="/"
           render={() => (
-            <Smurfs
-              smurfs={this.state.smurfs}
-              deleteSmurf={this.deleteSmurf}
-            />
+            <Smurfs smurfs={this.state.smurfs} deleteSmurf={this.deleteSmurf} />
           )}
         />
         <Route

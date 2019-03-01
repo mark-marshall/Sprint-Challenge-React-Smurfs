@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import Smurf from './Smurf';
 
 class Smurfs extends Component {
+  constructor(props){
+    super(props);
+  }
   render() {
     return (
       <div className="Smurfs">
@@ -10,13 +13,15 @@ class Smurfs extends Component {
         <ul>
           {this.props.smurfs.map(smurf => {
             return (
+              <div key={smurf.id}>
               <Smurf
                 name={smurf.name}
                 id={smurf.id}
                 age={smurf.age}
                 height={smurf.height}
-                key={smurf.id}
               />
+              <button value={smurf.id} onClick={event => this.props.deleteSmurf(event)}>Delete</button>
+              </div>
             );
           })}
         </ul>

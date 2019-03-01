@@ -5,6 +5,8 @@ import './App.css';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
 
+const smurfUrl = 'http://localhost:3333/smurfs';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -19,17 +21,25 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      .get('http://localhost:3333/smurfs')
+      .get(smurfUrl)
       .then(smurfs => this.updateSmurfs(smurfs.data))
       .catch(error => this.updateErrors(error.message));
   }
 
   addSmurf = smurf => {
     axios
-      .post('http://localhost:3333/smurfs', smurf)
+      .post(smurfUrl, smurf)
       .then(() => this.addToSmurfsList(smurf))
       .catch(error => this.updateErrors(error.message));
   };
+
+  deleteSmurf = event => {
+    console.log(event.target.value)
+    axios
+    .delete(`${smurfUrl}/${event.target.value}`)
+    .then(smurfs => this.updateSmurfs(smurfs.data))
+    .catch(error => this.updateErrors(error.message));
+  }
 
   updateSmurfs = smurfs => {
     this.setState({ smurfs });
@@ -64,7 +74,7 @@ class App extends Component {
         <Route
           exact
           path="/"
-          render={() => <Smurfs smurfs={this.state.smurfs} />}
+          render={() => <Smurfs smurfs={this.state.smurfs} deleteSmurf={this.deleteSmurf} />}
         />
       </div>
     );

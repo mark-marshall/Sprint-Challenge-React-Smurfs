@@ -46,6 +46,9 @@ class App extends Component {
   };
 
   render() {
+    if(this.state.error){
+      return <h1>Oh Smurf. We have a problem: {this.state.error}</h1>
+    }
     return (
       <div className="App">
         <nav>

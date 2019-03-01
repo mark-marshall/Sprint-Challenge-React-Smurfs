@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PT from 'prop-types';
 
 class SmurfForm extends Component {
   constructor(props) {
@@ -61,3 +62,13 @@ class SmurfForm extends Component {
 }
 
 export default SmurfForm;
+
+SmurfForm.propTypes = {
+  smurfs: PT.arrayOf(PT.shape({
+    age: PT.number.isRequired,
+    height: PT.string.isRequired,
+    id: PT.number.isRequired,
+    name: PT.string.isRequired
+  })).isRequired,
+  addSmurf: PT.func.isRequired,
+}

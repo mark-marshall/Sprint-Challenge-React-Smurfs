@@ -13,6 +13,12 @@ class App extends Component {
     this.state = {
       smurfs: [],
       error: '',
+      editSmurf: {
+        id: '',
+        name: '',
+        age: '',
+        height: '',
+      },
     };
   }
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
@@ -34,12 +40,11 @@ class App extends Component {
   };
 
   deleteSmurf = event => {
-    console.log(event.target.value)
     axios
-    .delete(`${smurfUrl}/${event.target.value}`)
-    .then(smurfs => this.updateSmurfs(smurfs.data))
-    .catch(error => this.updateErrors(error.message));
-  }
+      .delete(`${smurfUrl}/${event.target.value}`)
+      .then(smurfs => this.updateSmurfs(smurfs.data))
+      .catch(error => this.updateErrors(error.message));
+  };
 
   updateSmurfs = smurfs => {
     this.setState({ smurfs });
@@ -56,8 +61,8 @@ class App extends Component {
   };
 
   render() {
-    if(this.state.error){
-      return <h1>Oh Smurf. We have a problem: {this.state.error}</h1>
+    if (this.state.error) {
+      return <h1>Oh Smurf. We have a problem: {this.state.error}</h1>;
     }
     return (
       <div className="App">
@@ -66,15 +71,20 @@ class App extends Component {
           <NavLink to="/smurf-form">Smurf Form</NavLink>
         </nav>
         <Route
+          exact
+          path="/"
+          render={() => (
+            <Smurfs
+              smurfs={this.state.smurfs}
+              deleteSmurf={this.deleteSmurf}
+            />
+          )}
+        />
+        <Route
           path="/smurf-form"
           render={() => (
             <SmurfForm smurfs={this.state.smurfs} addSmurf={this.addSmurf} />
           )}
-        />
-        <Route
-          exact
-          path="/"
-          render={() => <Smurfs smurfs={this.state.smurfs} deleteSmurf={this.deleteSmurf} />}
         />
       </div>
     );

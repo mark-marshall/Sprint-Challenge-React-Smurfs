@@ -23,14 +23,27 @@ class App extends Component {
     .catch(error => this.updateErrors(error.message))
   }
 
+  addSmurf = smurf => {
+    axios
+    .post('http://localhost:3333/smurfs', smurf)
+    .then(() => this.addToSmurfsList(smurf))
+    .catch(error => this.updateErrors(error.message))
+  }
+
   updateSmurfs = smurfs => {this.setState({ smurfs })}
 
   updateErrors = error => {this.setState({ error })}
 
+  addToSmurfsList = smurf => {
+    this.setState(prevState => ({
+      smurfs: prevState.smurfs.concat(smurf)
+    }))
+  }
+
   render() {
     return (
       <div className="App">
-        <SmurfForm />
+        <SmurfForm smurfs={this.state.smurfs} addSmurf={this.addSmurf}/>
         <Smurfs smurfs={this.state.smurfs} />
       </div>
     );

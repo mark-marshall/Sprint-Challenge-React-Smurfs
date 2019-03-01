@@ -8,15 +8,11 @@ class SmurfForm extends Component {
       name: '',
       age: '',
       height: '',
-      id: '',
     };
   }
 
   addSmurf = event => {
     event.preventDefault();
-    this.setState({
-      id: this.props.smurfs.length
-    })
     // add code to create the smurf using the api
     this.props.addSmurf(this.state)
 
@@ -24,7 +20,6 @@ class SmurfForm extends Component {
       name: '',
       age: '',
       height: '',
-      id: '',
     });
   }
 

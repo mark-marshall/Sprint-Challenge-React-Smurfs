@@ -8,24 +8,24 @@ import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
 
 const HeaderWrapper = styled.nav`
-  margin: 18px 0;
-  height: 50px;
-  background-color: #62cdfd;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+ margin: 18px 0;
+ height: 50px;
+ background-color: #62CDFD;
+ display: flex;
+ align-items: center;
+ justify-content: center;
 
-  a {
-    color: red;
-    text-decoration: none;
-    text-transform: lowercase;
-    font-size: 18px;
-    padding: 1%;
+ a {
+   color: red;
+   text-decoration: none;
+   text-transform: lowercase;
+   font-size: 18px;
+   padding: 1%;
 
-    &:hover {
-      color: white;
-    }
-  }
+   &:hover {
+    color: white;
+   }
+ }
 `;
 
 const smurfUrl = 'http://localhost:3333/smurfs';
@@ -36,12 +36,6 @@ class App extends Component {
     this.state = {
       smurfs: [],
       error: '',
-      editSmurf: {
-        id: '',
-        name: '',
-        age: '',
-        height: '',
-      },
     };
   }
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
@@ -55,7 +49,15 @@ class App extends Component {
       .catch(error => this.updateErrors(error.message));
   }
 
+  componentDidUpdate() {
+    axios
+      .get(smurfUrl)
+      .then(smurfs => this.updateSmurfs(smurfs.data))
+      .catch(error => this.updateErrors(error.message));
+  }
+
   addSmurf = smurf => {
+    console.log(smurf)
     axios
       .post(smurfUrl, smurf)
       .then(() => this.addToSmurfsList(smurf))
@@ -78,6 +80,7 @@ class App extends Component {
   };
 
   addToSmurfsList = smurf => {
+    console.log(smurf)
     this.setState(prevState => ({
       smurfs: prevState.smurfs.concat(smurf),
     }));
@@ -97,7 +100,10 @@ class App extends Component {
           exact
           path="/"
           render={() => (
-            <Smurfs smurfs={this.state.smurfs} deleteSmurf={this.deleteSmurf} />
+            <Smurfs
+              smurfs={this.state.smurfs}
+              deleteSmurf={this.deleteSmurf}
+            />
           )}
         />
         <Route
